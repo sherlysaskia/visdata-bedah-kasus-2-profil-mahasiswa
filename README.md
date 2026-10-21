@@ -1,4 +1,5 @@
 # 🎓 Dashboard Profil Mahasiswa
+🔗 **Demo:** https://dashboard-mahasiswa-sherly.streamlit.app
 
 **Bedah Kasus 2 · Visualisasi Data**  
 Sherly Saskia Rani · NIM 241051002
