@@ -1,0 +1,132 @@
+
+======================================================================
+1. KUALITAS DATA
+======================================================================
+Jurusan         str
+Semester      int64
+IPK         float64
+Usia          int64
+dtype: object 
+Missing:
+ Jurusan     0
+Semester    0
+IPK         0
+Usia        0
+dtype: int64 
+Duplikat: 34
+IPK di luar 0-4: 0 | Semester di luar 1-8: 0
+
+======================================================================
+2. NOMINAL: Jurusan
+======================================================================
+                            n     %
+Jurusan                            
+Sistem Informasi          214  21.4
+Manajemen                 194  19.4
+Teknik Informatika        158  15.8
+Akuntansi                 138  13.8
+Psikologi                 100  10.0
+Hukum                      80   8.0
+Desain Komunikasi Visual   69   6.9
+Teknik Sipil               47   4.7
+
+======================================================================
+3. ORDINAL: Semester (urut)
+======================================================================
+            n     %  kumulatif_%
+Semester                        
+1         171  17.1         17.1
+2         187  18.7         35.8
+3         178  17.8         53.6
+4         117  11.7         65.3
+5         120  12.0         77.3
+6         103  10.3         87.6
+7          76   7.6         95.2
+8          48   4.8        100.0
+Median semester: 3.0 | Modus: 2 (ordinal: pakai median/modus, bukan mean)
+
+======================================================================
+4. KONTINU: IPK & Usia
+======================================================================
+       count   mean   std    min    25%    50%    75%   max  skewness  kurtosis
+IPK   1000.0   3.23  0.34   1.51   3.08   3.28   3.45   4.0     -1.69      5.38
+Usia  1000.0  20.19  2.07  17.00  19.00  20.00  21.00  37.0      3.10     16.47
+
+Outlier IPK: batas [2.52, 4.01] -> 31 data (3.1%)
+  nilai terekstrem: [1.51, 1.58, 1.59] ... [2.37, 2.45, 2.49]
+  Shapiro p=3.13e-19 -> tidak normal
+
+Outlier Usia: batas [16.00, 24.00] -> 23 data (2.3%)
+  nilai terekstrem: [25, 25, 25] ... [33, 34, 37]
+  Shapiro p=6.29e-27 -> tidak normal
+
+======================================================================
+5. IPK PER JURUSAN
+======================================================================
+                          count  mean  median   std   min   max
+Jurusan                                                        
+Desain Komunikasi Visual     69  3.37    3.39  0.31  1.66  3.96
+Psikologi                   100  3.37    3.41  0.34  1.87  3.90
+Sistem Informasi            214  3.30    3.34  0.33  1.63  3.95
+Akuntansi                   138  3.27    3.31  0.30  1.68  3.82
+Manajemen                   194  3.22    3.21  0.25  2.04  3.83
+Teknik Informatika          158  3.13    3.22  0.41  1.51  4.00
+Hukum                        80  3.12    3.10  0.33  1.58  3.74
+Teknik Sipil                 47  2.99    3.03  0.39  1.75  3.67
+
+Kruskal-Wallis IPK ~ Jurusan: H=118.5, p=1.54e-22 -> ada perbedaan signifikan
+
+======================================================================
+6. IPK & USIA PER SEMESTER (ordinal)
+======================================================================
+            n  IPK_mean  IPK_median  Usia_median
+Semester                                        
+1         171      3.17        3.21         18.0
+2         187      3.19        3.21         19.0
+3         178      3.22        3.26         20.0
+4         117      3.25        3.34         20.0
+5         120      3.28        3.32         21.0
+6         103      3.26        3.30         21.0
+7          76      3.30        3.37         21.0
+8          48      3.38        3.40         22.0
+
+======================================================================
+7. KORELASI (Spearman, cocok untuk ordinal)
+======================================================================
+Semester  vs IPK  : rho=+0.19, p=6.06e-10
+Semester  vs Usia : rho=+0.74, p=4.96e-171
+Usia      vs IPK  : rho=+0.13, p=4.19e-05
+
+======================================================================
+8. KATEGORI PRESTASI (berdasar IPK)
+======================================================================
+IPK
+<2.75 (perlu perhatian)          52
+2.75-3.00                       136
+3.01-3.50 (sangat memuaskan)    635
+3.51-3.75                       157
+3.76-4.00 (cum laude)            20
+Name: count, dtype: int64
+
+======================================================================
+9. SILANG JURUSAN x SEMESTER (jumlah)
+======================================================================
+Semester                    1    2    3    4    5    6   7   8   All
+Jurusan                                                             
+Akuntansi                  27   28   20   18   18   12  11   4   138
+Desain Komunikasi Visual    6   18   17    4   10    8   4   2    69
+Hukum                      16   16   14    8   13    4   5   4    80
+Manajemen                  37   35   29   23   29   19  16   6   194
+Psikologi                  14   15   22   17   11    9   3   9   100
+Sistem Informasi           35   41   38   22   26   20  22  10   214
+Teknik Informatika         28   29   32   19    9   23  10   8   158
+Teknik Sipil                8    5    6    6    4    8   5   5    47
+All                       171  187  178  117  120  103  76  48  1000
+
+======================================================================
+10. INSIGHT OTOMATIS
+======================================================================
+- Jurusan terbanyak: Sistem Informasi (214 mhs). IPK rata-rata tertinggi: Desain Komunikasi Visual (3.37).
+- IPK rata-rata 3.23, median 3.28; skew -1.69 (miring kiri karena ada IPK rendah dan batas atas 4.0).
+- Usia median 20 tahun; 20 mahasiswa berusia di atas 25.
+- 20 mahasiswa (2.0%) berpotensi cum laude (IPK >= 3.76).
